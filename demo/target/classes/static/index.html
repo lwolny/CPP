@@ -1,0 +1,150 @@
+<!-- this is a comment for html -->
+
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	</head>
+	
+
+	<body>
+	
+ 		<h1>Basic Retirement Calculators</h1>
+ 		<h2>403b and 457b Calculator</h2>
+ 		<p>This calc will estimate the how much you will have at the start of retirement</p>
+ 		 		
+ 		<input type=number id="dollars"> How much monthly do you plan to put away? (default value is $500)
+ 		<p> </p>
+ 		<input type=number id="years"> How many years of Saving do you have ahead? (default value is 20)
+ 		<p> </p>
+ 		<input type=number id="percent"> What percentage do you estimate you'll make? (default value is 8%)
+ 			<!-- onclick="methodName()"buttonName -->
+ 		<p> </p>	
+ 			<button onclick="calculation()">calculate</button> 
+ 			<label id="monthly_Value"></label> <!-- This line is the text after the box  -->
+ 		<p> </p>
+ 		
+ 		<p>How long will my money last?</p>
+ 		<input type=number id="valueAtRetirement"> How much did you retire with? (default value is $300,000)
+ 		<p> </p>
+ 		<input type=number id="yearsRetired"> How many years of retirement do you have ahead? (default value is 20)
+ 		<p> </p>
+ 		<input type=number id="withdrawl"> How much money do you expect to withdraw per month? (default value is $2000)
+ 		<p> </p>
+ 		<input type=number id="percent"> What percentage will your savings continue to earn? (default value is 5%)
+ 			<!-- onclick="methodName()"buttonName -->
+ 		<p> </p>	
+ 			<button onclick="retired()">calculate</button> 
+ 
+ 			<label id="yearsToDepletion"></label> <!-- This line is the text after the box  -->
+ 		<p> </p>
+ 		
+ 		
+ 		
+ 		
+ 		<p> </p>
+ 		<h2>Pension Calculator</h2>
+ 		<p>This calc will estimate your monthly pension if you are a 2% @ 62 employee </p>		
+ 		<input type=number id="retirementAge"> At what age will you retire? (default value is 62)
+ 		<p> </p>
+ 		<input type=number id="yearsOfService"> How many years did you work for your employer? (default value is 20)
+ 		<p> </p>
+ 		<input type=number id="highestSalary"> What was your highest Salary? (default value is $100,000)
+ 			<p> </p>
+ 			<!-- onclick="methodName()"buttonName -->
+ 			<button onclick="pension()">calculate</button> 
+ 	
+ 			<label id="total_Value"></label> <!-- This line is the text after the box  -->
+ 		<p> </p>
+ 		
+ 		    <!-- this defines the type the input box accepts -->
+  		    <!-- <input type="text" id="name">  -->
+  		    
+ 			<!-- onclick="methodName()"buttonName 
+  			<button onclick="home()">home</button> 
+ 			<label id="message_label">Testing this button and input</label> <!-- This line is the text after the box  -->
+ 
+ 		<p> </p>
+ 		
+ 		
+ 		<p> </p>
+ 
+	</body>
+	
+	
+	
+	<script>
+		function home()
+		{
+			var mName = $("#name").val(); //var variableName = $("#id in calling method").val();
+			$(document).ready(function() {
+			$.ajax({
+		        url: "http://localhost:8080/home?name=" + mName
+		    }).then(function(data) {
+//		    	alert(data);
+		    	$("#message_label").text(data);
+		  		$('.greeting-id').append(data.id);
+		    	$('.greeting-content').append(data.content); 
+		    });
+			});
+		}
+		
+		function calculation()
+		{
+			var dollarValue = $("#dollars").val(); //var variableName = $("#id in calling method").val();
+			var years = $("#years").val();
+			var percentage = $("#percent").val();
+			$(document).ready(function() {
+			$.ajax({
+		        url: "http://https://sites.google.com/hemetusd.org/finance/home/calculation?monthlyValue=" + dollarValue + "&years=" + years +"&percent=" + percentage
+		    }).then(function(data) {
+//		    	alert(data);
+		    	$("#monthly_Value").text(data);
+		  		$('.greeting-id').append(data.id);
+		    	$('.greeting-content').append(data.content); 
+		    });
+			});
+		}
+		
+		function pension()
+		{
+			var retirementAge = $("#retirementAge").val(); //var variableName = $("#id in calling method").val();
+			var yOS = $("#yearsOfService").val();
+			var highestSalary = $("#highestSalary").val();
+			$(document).ready(function() {
+			$.ajax({
+		        url: "http://localhost:8080/pension?retirementAge=" + retirementAge + "&yearsOfService=" + yOS +"&highestSalary=" + highestSalary
+		    }).then(function(data) {
+//		    	alert(data);
+		    	$("#total_Value").text(data);
+		  		$('.greeting-id').append(data.id);
+		    	$('.greeting-content').append(data.content); 
+		    });
+			});
+		}
+		
+		function retired()
+		/*valueAtRetirement
+ 	yearsRetired
+ 	withdrawl
+ 	percent*/
+		{
+			var total = $("#valueAtRetirement").val(); //var variableName = $("#id in calling method").val();
+			var lengthOfRetirement = $("#yearsRetired").val();
+			var perMonthWithdrawl = $("#withdrawl").val();
+			var percent = $("#percent").val();
+			$(document).ready(function() {
+			$.ajax({
+		        url: "http://localhost:8080/retired?valueAtRetirement=" + total + "&yearsRetired=" + lengthOfRetirement +"&withdrawl=" + perMonthWithdrawl + "&percent="+ percent
+		    }).then(function(data) {
+//		    	alert(data);
+		    	$("#yearsToDepletion").text(data);
+		  		$('.greeting-id').append(data.id);
+		    	$('.greeting-content').append(data.content); 
+		    });
+			});
+		}
+		
+	</script>
+	
+	
+</html>
